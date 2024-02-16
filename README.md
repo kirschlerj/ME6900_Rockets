@@ -8,6 +8,7 @@ HW #2 - Completed Individually
 HW #3 - Completed as Team using separate MATLAB scripts
 
 Project 1 - 
+
     Part 1. Develop a rocket design using OpenRocket or similar to meet requirements and document results
     Part 2. Develop Simulink dynamics model of a rocket meeting requirements
        1. Use the frontal area from the last assignment.
