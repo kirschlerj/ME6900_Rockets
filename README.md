@@ -1,5 +1,5 @@
 # ME6900_Rockets
-Repo for ME6900 class; Team: Jack Kirschler &amp; Tony Tonkovich
+Repo for ME6900 class; Team: Jack Kirschler &amp; Tony Tonkovich (Area = 0.5 m^2)
 
 HW #1 - Completed Individually
 
