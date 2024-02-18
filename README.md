@@ -14,9 +14,9 @@ Project 1 -
     - [x] 2. Model motor as square wave output (based on standard size).
     - [ ] 3. Import drag coefficient data from RockSim/OpenRocket drag coefficient.
     - [ ] 4. Combine drag force and motor force and feed into 3 DoF equations of motion block.
-       - [ ] 4a. The use of your atmosphere model is required here
+       - [x] 4a. The use of your atmosphere model is required here
     - [x] 5. Specify mass and gravity force into 3DoF block. Optional to lose mass during flight.
-    - [ ] 6. Feedback the body velocity to be used for the aerodynamic calculations.
+    - [x] 6. Feedback the body velocity to be used for the aerodynamic calculations.
     - [ ] 7. Define a stop condition at apogee (maximum height reached).
     - [ ] 8. Add scopes to all major areas: Total drag force, motor force, combined forces, body velocity, dynamic pressure, altitude and position (Z & X), body accelerations, and any other significate data that shows details about flight or the model.
     - [ ] 9. Simulate and tweak motor parameters to meet requirements.
