@@ -56,5 +56,5 @@ legend('Altitude', 'Mach')
 x1 = xline(8.1,'--','Max q / Motor cutoff');
 x1.LabelVerticalAlignment = 'bottom';
 x2 = xline(29.7,'--','Apogee');
-x2.LabelHorizontalAlignment = 'left';
+x2.LabelHorizontalAlignment = ''
 x2.LabelVerticalAlignment = 'bottom';
