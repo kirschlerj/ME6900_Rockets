@@ -43,18 +43,36 @@ legend('Coefficent of Drag', 'Dynamic Pressure')
 
 figure(4)
 yyaxis left
-plot(out.Altitude(:,1), out.Altitude(:,2))
+altp = plot(out.Altitude(:,1), out.Altitude(:,2));
 hold on
 ylabel('Altitude [m]')
 yyaxis right
-plot(out.mach(:,1), out.mach(:,2))
+machp = plot(out.mach(:,1), out.mach(:,2));
 ylabel('Mach [-]')
 xlabel('Simulation Time [s]')
 title('Flight Profile')
 grid on
-legend('Altitude', 'Mach')
-x1 = xline(8.1,'--','Max q / Motor cutoff');
+x1 = xline(8.42,'--','Max q');
 x1.LabelVerticalAlignment = 'bottom';
-x2 = xline(29.7,'--','Apogee');
+x2 = xline(33.58,'--','Apogee');
 x2.LabelHorizontalAlignment = 'left';
-x2.LabelVerticalAlignment = 'bottom';
+x2.LabelVerticalAlignment = 'middle';
+x3 = xline(14.5,'--','Motor Cutoff');
+x3.LabelVerticalAlignment = 'bottom';
+legend([altp, machp], 'Altitude', 'Mach')
+
+sim = readtable('./Simdata_flightpath');
+figure(5)
+yyaxis left
+plot(out.Altitude(:,1), out.Altitude(:,2))
+hold on
+plot(sim.Time, sim.Altitude)
+ylabel('Altitude [m]')
+yyaxis right
+plot(out.vel(:,1), out.vel(:,2))
+hold on
+plot(sim.Time, sim.VerticalVelocity)
+ylabel('Vertical Velocity [m/s]')
+xlabel('Time [s]')
+title('Open Rocket vs Simulink')
+legend('Simulink Altitude', 'Open Rocket Altitude', 'Simulink Vertical Velocity', 'Open Rocket Vertical Velocity')

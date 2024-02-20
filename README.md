@@ -21,4 +21,4 @@ Project 1 -
     - [x] 8. Add scopes to all major areas: Total drag force, motor force, combined forces, body velocity, dynamic pressure, altitude and position (Z & X), body accelerations, and any other significate data that shows details about flight or the model.
     - [x] 9. Simulate and tweak motor parameters to meet requirements.
     - [x] 10. Plot and report data using professional graphs/figures (export to matlab workspace).
-- [ ] Part 3. Presentation: 5 slides max detailing your model, how it works, and results
+- [x] Part 3. Presentation: 5 slides max detailing your model, how it works, and results
