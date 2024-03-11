@@ -33,7 +33,7 @@ Project 2 -
 - [ ] Have the initial body attitude in the 3DoF initial conditions as -90 deg (rocket pointing up to sky) 
 - [ ] X body axis takes motor forces and drag 
 - [x] Develop a stop condition for final altitude
-- [ ]Provide data for the following areas in the report versus time: Total drag force, motor force, combined forces, body velocity, dynamic pressure, altitude/position (Z & X), angle, angular velocity, angular acceleration, body accelerations, and any other significant data that shows details about flight or the model – prove that your rocket achieved the altitude and orientation requirements 
+- [ ] Provide data for the following areas in the report versus time: Total drag force, motor force, combined forces, body velocity, dynamic pressure, altitude/position (Z & X), angle, angular velocity, angular acceleration, body accelerations, and any other significant data that shows details about flight or the model – prove that your rocket achieved the altitude and orientation requirements 
 - [ ] Report detailing how you built the model and all aspects showing all inputs and assumptions. Graph motor force, acceleration, velocity, position, and angular position, and velocity versus time (see next page for full list, 2 pages of text MAX with graphs, data, tables, and model pictures in appendix) 
 - [ ] Presentation: 5 slides max detailing your model, how it works, and results 
 - [ ] Bonus: After proving that your simulation performs the necessary tasks, generate a visualization output movie. One example is using Flightgear connected to Simulink. 
