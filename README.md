@@ -30,7 +30,7 @@ Project 2 -
 - [x] Utilize your existing atmospheric model to find density and speed of sound 
 - [ ] Recommended: Fix at minimum CG to 1/3 back, and CP 1/2 of your total length back from nose. 
 - [ ] Specify mass as a function of time and variable gravity force into 3DoF block 
-- [ ] Have the initial body attitude in the 3DoF initial conditions as -90 deg (rocket pointing up to sky) 
+- [x] Have the initial body attitude in the 3DoF initial conditions as -90 deg (rocket pointing up to sky) 
 - [ ] X body axis takes motor forces and drag 
 - [x] Develop a stop condition for final altitude
 - [ ] Provide data for the following areas in the report versus time: Total drag force, motor force, combined forces, body velocity, dynamic pressure, altitude/position (Z & X), angle, angular velocity, angular acceleration, body accelerations, and any other significant data that shows details about flight or the model – prove that your rocket achieved the altitude and orientation requirements 
