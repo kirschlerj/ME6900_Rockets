@@ -28,7 +28,7 @@ Project 2 -
 - [x] Drag coefficient must vary by Mach 
 - [x] Include the effects of altitude change (air density, speed of sound, gravity). Clearly define where the optimal point of turning for acceleration into orbit was chosen 
 - [x] Utilize your existing atmospheric model to find density and speed of sound 
-- [?] Recommended: Fix at minimum CG to 1/3 back, and CP 1/2 of your total length back from nose. 
+- [x] Recommended: Fix at minimum CG to 1/3 back, and CP 1/2 of your total length back from nose. 
 - [x] Specify mass as a function of time and variable gravity force into 3DoF block 
 - [x] Have the initial body attitude in the 3DoF initial conditions as -90 deg (rocket pointing up to sky) 
 - [x] X body axis takes motor forces and drag 
