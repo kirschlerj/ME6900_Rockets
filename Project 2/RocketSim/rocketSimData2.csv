@@ -1,4 +1,4 @@
-# Time (s),Altitude (m),Vertical velocity (m/s),Vertical acceleration (m/s²),Mass (g),Mach number (​),Drag coefficient (​)
+time,altitude,vel,accel,mass,mach,cd
 0.01,0.001,0.104,10.367,1167202.097,0.006,0.344
 0.02,0.004,0.592,48.87,1167201.978,0.006,0.342
 0.03,0.013,1.18,58.748,1167201.794,0.007,0.337

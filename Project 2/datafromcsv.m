@@ -2,7 +2,7 @@ clc;
 clear;
 close all;
 
-data = readtable('./RocketSim/rocketSimData.csv');
+data = readtable('./RocketSim/rocketSimData2.csv');
 
 time = data.time;
 %alt = data.altitude;
