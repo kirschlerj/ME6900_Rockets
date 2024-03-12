@@ -2,18 +2,21 @@ clc;
 clear;
 close all;
 
-data = readtable('rocketSimData.csv');
+data = readtable('./RocketSim/rocketSimData.csv');
 
 time = data.time;
 %alt = data.altitude;
 %vel = data.vel;
 %accel = data.accel;
 mass = data.mass;
-mach = data.mach;
-cd = data.cd;
 
+[C, ia] = unique(data.mach);
+B = data(ia,:);
 
-save('time.mat', 'time')
-save('mass.mat', 'mass')
+mach = B.mach;
+cd = B.cd;
+
+%save('time.mat', 'time')
+%save('mass.mat', 'mass')
 save('mach.mat', 'mach')
 save('cd.mat', 'cd')
