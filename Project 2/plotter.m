@@ -11,6 +11,7 @@ grid on
 xlabel('Simulation Time [s]')
 ylabel('Force [N]')
 title('Body Forces')
+saveas(gcf, 'Figures/bodyforces.png');
 
 figure(2)
 yyaxis left
@@ -27,6 +28,7 @@ xlabel('Simulation Time [s]')
 title('Body Dynamics')
 grid on
 legend('Vertical Velocity','Horizontal Velocity','Vertical Acceleration','Horizontal Acceleration')
+saveas(gcf, 'Figures/bodydynamics.png');
 
 figure(3)
 yyaxis left
@@ -40,6 +42,7 @@ xlabel('Simulation Time [s]')
 title('Aerodynamic Factors')
 grid on
 legend('Coefficent of Drag', 'Dynamic Pressure')
+saveas(gcf, 'Figures/aerofactors.png');
 
 figure(4)
 yyaxis left
@@ -60,13 +63,15 @@ x2.LabelVerticalAlignment = 'middle';
 x3 = xline(100,'--','Motor Cutoff');
 x3.LabelVerticalAlignment = 'middle';
 legend([altp, machp], 'Altitude', 'Mach')
+saveas(gcf, 'Figures/flightprofile.png');
 
 figure(5)
 plot(out.Gravity(:,1), out.Gravity(:,2)*-1)
 ylabel('Gravity [m/s^2]')
 xlabel('Simulation Time [s]')
-title('gravity acceleration vs time')
+title('Acceleration Due to Gravity vs Time')
 grid on
+saveas(gcf, 'Figures/gravity.png');
 
 figure(6)
 yyaxis left
@@ -80,13 +85,15 @@ grid on
 xlabel('Simulation Time [s]')
 legend([vertforce, sideforce],'Vertical Force', 'Side Force')
 title('Body Forces')
+saveas(gcf, 'Figures/sidevertforces.png');
 
 figure(7)
 plot(out.Angle(:,1), out.Angle(:,2))
-ylabel('Angle [rad]')
+ylabel('Angle [deg]')
 xlabel('Simulation Time [s]')
 grid on
-title('Angle of attack vs time')
+title('Angle of Attack vs Time')
+saveas(gcf, 'Figures/angle.png');
 
 mass_vec = ones(97,1);
 cur_mass = 1446.58165;
@@ -102,6 +109,7 @@ xlabel('Simulation Time [s]')
 ylabel('Mass [kg]')
 grid on
 title('Mass vs time')
+saveas(gcf, 'Figures/mass.png');
 
 result_vel = sqrt(out.vel(:,2).^2 + out.vel(:,3).^2);
 figure(9)
@@ -110,13 +118,18 @@ xlabel('Simulation Time [s]')
 ylabel('Resultant Velocity [m/s]')
 grid on
 title('Resultant Velocity vs Time')
+saveas(gcf, 'Figures/resultantvelocity.png');
 
 figure(10)
 plot(out.pos(:,2), out.pos(:,3)*-1)
+axis equal
+xlim([min(out.pos(:,2))-100000, 300000]);
+ylim([min(out.pos(:,3)*-1), max(out.pos(:,3)*-1)])
 xlabel('Horizontal Position [m]')
 ylabel('Vertical Position [m]')
 grid on
 title('Rocket Heading')
+saveas(gcf, 'Figures/heading.png');
 
 figure(11)
 plot(out.AngularVel(:,1), out.AngularVel(:,2))
@@ -124,6 +137,7 @@ xlabel('Simulation Time [s]')
 ylabel('Angular Velocity [rad/s]')
 grid on
 title('Angular Velocity vs Time')
+saveas(gcf, 'Figures/angularvelocity.png');
 
 % sim = readtable('./RocketSim/rocketSimData.csv');
 % figure(5)
