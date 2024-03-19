@@ -95,7 +95,7 @@ grid on
 title('Angle of Attack vs Time')
 saveas(gcf, 'Figures/angle.png');
 
-mass_vec = ones(97,1);
+mass_vec = ones(93,1);
 cur_mass = 1446.58165;
 for i=1:1:length(mass_vec)
     mass_vec(i,1) = cur_mass;
