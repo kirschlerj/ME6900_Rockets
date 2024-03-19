@@ -55,12 +55,12 @@ ylabel('Mach [-]')
 xlabel('Simulation Time [s]')
 title('Flight Profile')
 grid on
-x1 = xline(160,'--','Max q');
+x1 = xline(100,'--','Max q');
 x1.LabelVerticalAlignment = 'bottom';
-x2 = xline(214,'--','Apogee');
+x2 = xline(180,'--','Apogee');
 x2.LabelHorizontalAlignment = 'left';
 x2.LabelVerticalAlignment = 'middle';
-x3 = xline(160,'--','Motor Cutoff');
+x3 = xline(100,'--','Motor Cutoff');
 x3.LabelVerticalAlignment = 'middle';
 legend([altp, machp], 'Altitude', 'Mach')
 saveas(gcf, 'Figures/flightprofile.png');
@@ -95,8 +95,8 @@ grid on
 title('Angle of Attack vs Time')
 saveas(gcf, 'Figures/angle.png');
 
-size_dmdt = size(out.dmdt);
-mass_vec = ones(size_dmdt(1),1);
+size(out.dmdt)
+mass_vec = ones(size,1);
 cur_mass = 1446.58165;
 for i=1:1:length(mass_vec)
     mass_vec(i,1) = cur_mass;
