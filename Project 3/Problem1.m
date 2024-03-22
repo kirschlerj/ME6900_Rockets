@@ -9,20 +9,21 @@ tf  = 42;
 [t,x] = ode45(@ode, [0,tf], [h0, v0]);
 
 hMax   = max(x(:,1));
-tZeroH = 0;
+tZeroH = t(x(:,1)<=0);
 
 figure;
 yyaxis left
 plot(t, x(:,1))
-% hold on
-% plot(t(hMax == x(:,1)), hMax,'r.', 'MarkerSize', 25)
 ylabel('Vertical Position [m]')
 yyaxis right
 plot(t, x(:,2))
 ylabel('Velocity [m/s]')
+hold on
+plot(t(hMax == x(:,1)), hMax,'.', 'color', "#0072BD", 'MarkerSize', 25)
 xlim([0,42]);
 xlabel('Time [s]')
 title('Ball Vertical Position and Velocity vs. Time')
+legend({'Position','Velocity','Max Height = 2038.7m'})
 saveas(gcf, 'Figures/P1ball.png');
 
 
