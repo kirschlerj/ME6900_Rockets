@@ -4,12 +4,11 @@ mach = out.mach(:,2);
 cd = out.Cd(:,2);
 alt = out.Altitude(:,2);
 angle = out.Angle(:,2);
+dens = density(2,:)';
 
 [mach_sort, idxs] = sort(mach);
 cd_sort = cd(idxs);
 
-figure
-plot(mach_sort, cd_sort);
 
 [alt_sort, idxs] = sort(alt);
 cd_sort = cd(idxs);
@@ -30,3 +29,9 @@ xlabel('Altitude [m]')
 ylabel('Turn Angle [deg]')
 title('Rocket Turn Angle vs. Altitude')
 
+figure
+plot(alt, dens)
+grid on
+xlabel('Altitude [m]')
+ylabel('Density [kg/m^3]')
+title('Air Density vs. Altitude')

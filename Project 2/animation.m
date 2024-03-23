@@ -16,7 +16,7 @@ for i =1:length(time)-1
     xlabel('Horizontal Position (m)', FontWeight='bold');
     ylabel('Altitude (m)', FontWeight='bold');
     axis equal
-    xlim([min(horDist)-1000, 400000]);
+    xlim([min(horDist)-100000, 300000]);
     ylim([min(altitude), max(altitude)])
     plot(horDist(1:i+1), altitude(1:i+1), 'b--', 'LineWidth', 2)
     hold on

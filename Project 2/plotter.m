@@ -55,13 +55,13 @@ ylabel('Mach [-]')
 xlabel('Simulation Time [s]')
 title('Flight Profile')
 grid on
-x1 = xline(160,'--','Max q');
-x1.LabelVerticalAlignment = 'bottom';
-x2 = xline(214,'--','Apogee');
-x2.LabelHorizontalAlignment = 'left';
-x2.LabelVerticalAlignment = 'middle';
-x3 = xline(160,'--','Motor Cutoff');
-x3.LabelVerticalAlignment = 'middle';
+% x1 = xline(160,'--','Max q');
+% x1.LabelVerticalAlignment = 'bottom';
+% x2 = xline(214,'--','Apogee');
+% x2.LabelHorizontalAlignment = 'left';
+% x2.LabelVerticalAlignment = 'middle';
+% x3 = xline(160,'--','Motor Cutoff');
+% x3.LabelVerticalAlignment = 'middle';
 legend([altp, machp], 'Altitude', 'Mach')
 saveas(gcf, 'Figures/flightprofile.png');
 
@@ -79,7 +79,7 @@ vertforce = plot(out.Verticalforce(:,1), out.Verticalforce(:,2));
 hold on
 ylabel('Vertical Force [N]')
 yyaxis right
-sideforce = plot(out.Sideforce(:,1), out.Sideforce(:,2));
+sideforce = plot(out.Verticalforce(:,1), out.Sideforce(:,1));
 ylabel('Side Force [N]')
 grid on
 xlabel('Simulation Time [s]')
@@ -88,7 +88,7 @@ title('Body Forces')
 saveas(gcf, 'Figures/sidevertforces.png');
 
 figure(7)
-plot(out.Angle(:,1), out.Angle(:,2))
+plot(out.Angle(:,1), out.Angle(:,2)*-1 + 90)
 ylabel('Angle [deg]')
 xlabel('Simulation Time [s]')
 grid on
