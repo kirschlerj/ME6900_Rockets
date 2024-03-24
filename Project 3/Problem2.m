@@ -6,32 +6,37 @@ clear, clc, close all
 thrustAvg = 174000; %(N)
 tBurn     = 250;    %(s)
 tSim      = 100;    
-mdot      = 1.154;  %(kg/s)
+mdot      = -1.154;  %(kg/s)
 area      = 0.5;    %(m^2)
 
 % Initial Conditions
-v0        = 0;      %(m/s)
-m0        = 1167.2; %(kg)
-h0        = 0;      %(m)
-thrust0   = 174000; %(N)
+v0        = 0;      % Initial velocity (m/s)
+h0        = 0;      % Initial altitude (m)
+m0        = 1167.2; % Initial mass (kg)
+fd0       = 0;      % Initial drag force (N)
+cd0       = 0;      % Initial drag coefficient
+c0        = 0;      % Initial speed of sound (m/s)
+rho0      = 0;      % Initial air density (kg/m^3)
+
+[t, x] = ode45(@(t,x) flight(t, x, mdot), [0, tSim], [h0; v0; m0;]);
+m = x(:, 3);
 
 
-for i = 1:20            %this is just for testing
-    v(i) = i*i;
-    alt(i) = i*5000;
+figure
+plot(t, m)
 
-    [rho(i), c(i)] = atmosmodel(alt(i));
-    cd(i) = cd_interp(v(i),c(i));
-    fd(i) = drag(rho(i),v(i),cd(i), area);
-
+function [dxdt, dm, fd] = flight(t, x, mdot)
+    
+    T = 174000;
+    fd = 0;
+    m0 = x(3);
+    
+    dh = x(2);
+    dm = mdot;
+    dv = (T - fd) / m0 - 9.81;
+    dxdt = [dh; dv; dm;];
+ 
 end 
 
 
-% [t,x] = ode45(@flight, [0,tf], [h0, v0]);
-% 
-% 
-% function dxdt = flight(t,x)
-%     dx = x(2);
-%     dv = -9.81;
-%     dxdt = [dx; dv];
-% end 
+    
