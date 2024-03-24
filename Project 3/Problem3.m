@@ -1,5 +1,4 @@
-
-% ME 6900 Project 3 - Problem 2
+% ME 6900 Project 3 - Problem 3
 clear, clc, close all
 
 % Constants
@@ -12,27 +11,31 @@ area      = 0.5;    %(m^2)
 % Initial Conditions
 v0        = 0;      % Initial velocity (m/s)
 h0        = 0;      % Initial altitude (m)
+x0        = 0;      % Initial hor. pos.(m)
 m0        = 1167.2; % Initial mass (kg)
 fd0       = 0;      % Initial drag force (N)
 cd0       = 0;      % Initial drag coefficient
 c0        = 0;      % Initial speed of sound (m/s)
 rho0      = 0;      % Initial air density (kg/m^3)
+th0       = 90;     % Initial body angle (deg)
 
 % ODE Solver
-[t, x] = ode45(@(t,x) flight(t, x, mdot), [0, tSim], [h0; v0; m0;]);
+[t, x] = ode45(@(t,x) flight(t, x, mdot), [0, tSim], [h0; v0; m0; x0;]);
 
 for i = 1:length(t)
     [~, fd(i), rho(i), cd(i), c(i)] = flight(t(i), x(i,:), mdot);
 end
 
 
-fd = fd';
-rho = rho';
-cd = cd';
-c = c';
-alt = x(:,1);
-vel = x(:,2);
-m   = x(:,3);
+fd   = fd';
+rho  = rho';
+cd   = cd';
+c    = c';
+alt  = x(:,1);
+vel  = x(:,2);
+m    = x(:,3);
+x    = x(:,4);
+% th   = x(:,5);
 mach = vel./c;
 
 
@@ -51,21 +54,24 @@ function [dxdt, fd, rho, cd, c] = flight(t, x, mdot)
     
     T = 17400;
     A = 0.5;
+    th = 80;
+    g = 9.81;
 
     h = x(1); 
     v = x(2);
     m = x(3);
-      
+    
+               
     [rho, c] = atmosmodel(h);
     cd = cd_interp(v,c);
     fd = drag(rho,v,cd,A);
     
-    dh = x(2);
+    dh = v*sind(th);
+    dx = v*cosd(th);
     dm = mdot;
-    dv = (T - fd) / m - 9.81;
-    dxdt = [dh; dv; dm;];
+    dv = (T - fd) / m - g*sind(th);
+    dth = -(g*cosd(th))/v;
+    dxdt = [dh; dv; dm; dx;];
  
 end 
 
-
-    
