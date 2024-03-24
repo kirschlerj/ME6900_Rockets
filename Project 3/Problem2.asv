@@ -18,28 +18,41 @@ cd0       = 0;      % Initial drag coefficient
 c0        = 0;      % Initial speed of sound (m/s)
 rho0      = 0;      % Initial air density (kg/m^3)
 
+% ODE Solver
 [t, x] = ode45(@(t,x) flight(t, x, mdot), [0, tSim], [h0; v0; m0;]);
-m = x(:, 3);
+
+for i = 1:length(t)
+    [~, fd(i), rho(i), cd(i), c(i)] = flight(t(i), x(i,:), mdot);
+end
+
+c =
+alt = x(:,1);
+vel = x(:,2);
+m   = x(:,3);
 
 
-figure
-plot(t, m)
+figure;
+yyaxis left
+plot(t, alt)
+ylabel('Altitude [m]')
+yyaxis right
+plot(t, vel/c)
+ylabel('Mach Number [-]');
+xlabel('Time [s]')
+title('Flight Profile')
 
-function [dxdt, dm, fd] = flight(t, x, mdot)
+function [dxdt, fd, rho, cd, c] = flight(t, x, mdot)
     
     T = 174000;
     A = 0.5;
-    fd = 0;
 
-    h = x(1);
+    h = x(1); 
     v = x(2);
     m = x(3);
-    
-    
+      
     [rho, c] = atmosmodel(h);
     cd = cd_interp(v,c);
-    fd =
-    
+    fd = drag(rho,v,cd,A);
     
     dh = x(2);
     dm = mdot;
