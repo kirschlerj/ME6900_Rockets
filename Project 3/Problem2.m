@@ -4,8 +4,8 @@ clear, clc, close all
 
 % Constants
 thrustAvg = 174000; %(N)
-tBurn     = 250;    %(s)
-tSim      = 100;    
+tBurn     = 200;    %(s)
+tSim      = 800;    
 mdot      = -1.154;  %(kg/s)
 area      = 0.5;    %(m^2)
 
@@ -19,17 +19,17 @@ c0        = 0;      % Initial speed of sound (m/s)
 rho0      = 0;      % Initial air density (kg/m^3)
 
 % ODE Solver
-[t, x] = ode45(@(t,x) flight(t, x, mdot), [0, tSim], [h0; v0; m0;]);
+[t, x] = ode45(@(t,x) flight(t, x, mdot, tBurn), [0, tSim], [h0; v0; m0;]);
 
 for i = 1:length(t)
-    [~, fd(i), rho(i), cd(i), c(i)] = flight(t(i), x(i,:), mdot);
+    [~, fd(i), rho(i), cd(i), c(i), T(i)] = flight(t(i), x(i,:), mdot, tBurn);
 end
-
 
 fd = fd';
 rho = rho';
 cd = cd';
 c = c';
+T = T';
 alt = x(:,1);
 vel = x(:,2);
 m   = x(:,3);
@@ -47,7 +47,22 @@ xlabel('Time [s]')
 title('Flight Profile')
 saveas(gcf, 'Figures/P2FlightProfile.png');
 
-function [dxdt, fd, rho, cd, c] = flight(t, x, mdot)
+figure; 
+plot(t, T, t, fd, t, T+fd);
+ylabel('Force [N]');
+xlabel('Time [s]')
+title('Body Force')
+saveas(gcf, 'Figures/P2BodyForces.png');
+
+figure;
+plot(t, m);
+ylabel('Mass [kg]');
+xlabel('Time [s]');
+title('Rocket Mass vs Time');
+saveas(gcf, 'Figures/P2Mass.png');
+
+
+function [dxdt, fd, rho, cd, c, T] = flight(t, x, mdot, tBurn)
     
     T = 17400;
     A = 0.5;
@@ -60,8 +75,14 @@ function [dxdt, fd, rho, cd, c] = flight(t, x, mdot)
     cd = cd_interp(v,c);
     fd = drag(rho,v,cd,A);
     
+    if t >= tBurn
+        dm = 0;
+        T = 0;
+    else 
+        dm = mdot;
+    end 
+    
     dh = x(2);
-    dm = mdot;
     dv = (T - fd) / m - 9.81;
     dxdt = [dh; dv; dm;];
  

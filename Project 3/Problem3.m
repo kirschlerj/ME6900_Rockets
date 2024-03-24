@@ -20,7 +20,7 @@ rho0      = 0;      % Initial air density (kg/m^3)
 th0       = 90;     % Initial body angle (deg)
 
 % ODE Solver
-[t, x] = ode45(@(t,x) flight(t, x, mdot), [0, tSim], [h0; v0; m0; x0;]);
+[t, x] = ode45(@(t,x) flight(t, x, mdot), [0, tSim], [h0; v0; m0; x0; th0;]);
 
 for i = 1:length(t)
     [~, fd(i), rho(i), cd(i), c(i)] = flight(t(i), x(i,:), mdot);
@@ -34,8 +34,8 @@ c    = c';
 alt  = x(:,1);
 vel  = x(:,2);
 m    = x(:,3);
-x    = x(:,4);
-% th   = x(:,5);
+hor  = x(:,4);
+th   = x(:,5);
 mach = vel./c;
 
 
@@ -54,7 +54,7 @@ function [dxdt, fd, rho, cd, c] = flight(t, x, mdot)
     
     T = 17400;
     A = 0.5;
-    th = 80;
+    th = 90;
     g = 9.81;
 
     h = x(1); 
@@ -66,12 +66,18 @@ function [dxdt, fd, rho, cd, c] = flight(t, x, mdot)
     cd = cd_interp(v,c);
     fd = drag(rho,v,cd,A);
     
+    count = 0;   
+    if h >= 20000 & count == 0;
+        th = 89.9;
+        count = 1; 
+    end 
+    
     dh = v*sind(th);
     dx = v*cosd(th);
     dm = mdot;
     dv = (T - fd) / m - g*sind(th);
-    dth = -(g*cosd(th))/v;
-    dxdt = [dh; dv; dm; dx;];
+    dth = -(g*cosd(th))/v; 
+    dxdt = [dh; dv; dm; dx; dth;];
  
 end 
 
