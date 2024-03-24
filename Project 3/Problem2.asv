@@ -19,26 +19,27 @@ c0        = 0;      % Initial speed of sound (m/s)
 rho0      = 0;      % Initial air density (kg/m^3)
 
 [t, x] = ode45(@(t,x) flight(t, x, mdot), [0, tSim], [h0; v0; m0;]);
-alt = x(:,1);
-vel = x(:,2);
-m   = x(:,3);
+m = x(:, 3);
 
 
 figure
-plot(t, vel)
+plot(t, m)
 
 function [dxdt, dm, fd] = flight(t, x, mdot)
     
     T = 174000;
     A = 0.5;
+    fd = 0;
 
-    h = x(1); 
+    h = x(1);
     v = x(2);
     m = x(3);
-      
+    
+    
     [rho, c] = atmosmodel(h);
     cd = cd_interp(v,c);
-    fd = drag(rho,v,cd,A);
+    fd =
+    
     
     dh = x(2);
     dm = mdot;
