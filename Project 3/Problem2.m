@@ -3,20 +3,14 @@
 clear, clc, close all
 
 % Constants
-thrustAvg = 174000; %(N)
-tBurn     = 200;    %(s)
-tSim      = 800;    
+tBurn     = 130;    %(s)
+tSim      = 388;    
 mdot      = -1.154;  %(kg/s)
-area      = 0.5;    %(m^2)
 
 % Initial Conditions
 v0        = 0;      % Initial velocity (m/s)
 h0        = 0;      % Initial altitude (m)
 m0        = 1167.2; % Initial mass (kg)
-fd0       = 0;      % Initial drag force (N)
-cd0       = 0;      % Initial drag coefficient
-c0        = 0;      % Initial speed of sound (m/s)
-rho0      = 0;      % Initial air density (kg/m^3)
 
 % ODE Solver
 [t, x] = ode45(@(t,x) flight(t, x, mdot, tBurn), [0, tSim], [h0; v0; m0;]);
@@ -63,8 +57,8 @@ saveas(gcf, 'Figures/P2Mass.png');
 
 
 function [dxdt, fd, rho, cd, c, T] = flight(t, x, mdot, tBurn)
-    
-    T = 17400;
+
+    T = 52000;
     A = 0.5;
 
     h = x(1); 
@@ -83,7 +77,7 @@ function [dxdt, fd, rho, cd, c, T] = flight(t, x, mdot, tBurn)
     end 
     
     dh = x(2);
-    dv = (T - fd) / m - 9.81;
+    dv = (T + fd) / m - 9.81;
     dxdt = [dh; dv; dm;];
  
 end 

@@ -26,6 +26,7 @@ title('Ball Vertical Position and Velocity vs. Time')
 legend({'Position','Velocity','Max Height = 2038.7m'})
 saveas(gcf, 'Figures/P1ball.png');
 
+fprintf('Time till impact: %s [s]',tZeroH(2))
 
 function dxdt = ode(t,x)
     dx = x(2);
