@@ -45,7 +45,8 @@ figure;
 plot(t, T, t, fd, t, T+fd);
 ylabel('Force [N]');
 xlabel('Time [s]')
-title('Body Force')
+title('Body Forces')
+legend('Thrust','Drag','Total')
 saveas(gcf, 'Figures/P2BodyForces.png');
 
 figure;

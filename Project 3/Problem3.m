@@ -41,7 +41,7 @@ plot(t, vel)
 ylabel('Mach Number [-]');
 xlabel('Time [s]')
 title('Flight Profile')
-saveas(gcf, 'Figures/P2FlightProfile.png');
+saveas(gcf, 'Figures/P3FlightProfile.png');
 
 figure;
 plot(hor, alt)
@@ -49,10 +49,14 @@ xlabel('Horizontal Position [m]')
 ylabel('Vertical Position [m]')
 grid on
 title('Rocket Heading')
-saveas(gcf, 'Figures/heading.png');
+saveas(gcf, 'Figures/P3heading.png');
 
 figure;
 plot(t, th)
+xlabel('Time [s]')
+ylabel('Heading Angle [deg]')
+title('Rocket Angle vs Time')
+saveas(gcf, 'Figures/P3Angle.png');
 
 function [dxdt, fd, rho, cd, c, T] = flight(t, x, mdot, tBurn)
     
