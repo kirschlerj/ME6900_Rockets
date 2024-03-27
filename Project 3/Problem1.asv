@@ -33,14 +33,13 @@ fprintf('Time till impact: %s [s]',tZeroH(2))
 
 figure(2)
 xlim([0,43])
-ylim([0,2200])
+ylim([0,2000])
 xlabel('Time [s]')
 ylabel('Vertical Position [m]')
 hold on
-pause(10)
 for i=1:1:length([0:1:tf])
-    pause(0.5)
-    scatter(t(i), x(i,1), 'r')
+    pause(1)
+    scatter(t(i), x(i,1))
     
 end
 

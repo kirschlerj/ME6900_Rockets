@@ -1,1 +1,0 @@
-[qq, zz] = atmosmodel(0)
