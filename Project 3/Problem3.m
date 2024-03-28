@@ -25,6 +25,7 @@ fd   = fd';
 rho  = rho';
 cd   = cd';
 c    = c';
+T = T';
 alt  = x(:,1);
 vel  = x(:,2);
 m    = x(:,3);
@@ -32,44 +33,59 @@ hor  = x(:,4);
 th   = x(:,5);
 mach = vel./c;
 
-% figure;
-% yyaxis left
-% plot(t, alt)
-% ylabel('Altitude [m]')
-% yyaxis right
-% plot(t, vel)
-% ylabel('Mach Number [-]');
-% xlabel('Time [s]')
-% title('Flight Profile')
-% saveas(gcf, 'Figures/P3FlightProfile.png');
-% 
-% figure;
-% plot(hor, alt)
-% xlabel('Horizontal Position [m]')
-% ylabel('Vertical Position [m]')
-% grid on
-% title('Rocket Heading')
-% saveas(gcf, 'Figures/P3heading.png');
-% 
-% figure;
-% plot(t, th)
-% xlabel('Time [s]')
-% ylabel('Heading Angle [deg]')
-% title('Rocket Angle vs Time')
-% saveas(gcf, 'Figures/P3Angle.png');
+figure;
+yyaxis left
+plot(t, alt)
+ylabel('Altitude [m]')
+yyaxis right
+plot(t, vel)
+ylabel('Velocity [m/s]');
+xlabel('Time [s]')
+title('Flight Profile')
+saveas(gcf, 'Figures/P3FlightProfile.png');
 
-figure(1)
-xlim([0,180000])
-ylim([0,800000])
+figure;
+plot(hor, alt)
 xlabel('Horizontal Position [m]')
 ylabel('Vertical Position [m]')
-hold on
-pause(10)
-for i=1:1:length([0:2:tSim])
-    pause(0.1)
-    scatter(hor(i), alt(i,1), 'r')
-    
-end
+grid on
+title('Rocket Heading')
+saveas(gcf, 'Figures/P3heading.png');
+
+figure;
+plot(t, th)
+xlabel('Time [s]')
+ylabel('Heading Angle [deg]')
+title('Rocket Angle vs Time')
+saveas(gcf, 'Figures/P3Angle.png');
+
+figure; 
+plot(t, T, t, fd, t, T+fd);
+ylabel('Force [N]');
+xlabel('Time [s]')
+title('Body Forces')
+legend('Thrust','Drag','Total')
+saveas(gcf, 'Figures/P3BodyForces.png');
+
+figure;
+plot(t, m)
+xlabel('Time [s]')
+ylabel('Mass [kg]')
+title('Rocket Mass vs Time')
+saveas(gcf, 'Figures/P3mass.png');
+
+% figure(1)
+% xlim([0,180000])
+% ylim([0,800000])
+% xlabel('Horizontal Position [m]')
+% ylabel('Vertical Position [m]')
+% hold on
+% pause(10)
+% for i=1:1:length([0:2:tSim])
+%     pause(0.1)
+%     scatter(hor(i), alt(i,1), 'r')
+%     
+% end
 
 function [dxdt, fd, rho, cd, c, T] = flight(t, x, mdot, tBurn)
     
