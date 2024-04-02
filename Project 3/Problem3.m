@@ -34,6 +34,9 @@ th   = x(:,5);
 mach = vel./c;
 
 figure;
+plot(mach, cd)
+
+figure;
 yyaxis left
 plot(t, alt)
 ylabel('Altitude [m]')

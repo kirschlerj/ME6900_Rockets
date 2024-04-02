@@ -10,7 +10,6 @@ function [density, c] = atmosmodel(alt)
     density(alt > max(alt_data)) = rho_data(end);
     c(alt < min(alt_data)) = c_data(1);
     c(alt > max(alt_data)) = c_data(end);
-      
-    
+       
 end
 

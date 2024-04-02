@@ -11,23 +11,23 @@ tf  = 42;
 hMax   = max(x(:,1));
 tZeroH = roots([-4.905 200 0]);
 
-% figure;
-% yyaxis left
-% plot(t, x(:,1))
-% ylabel('Vertical Position [m]')
-% yyaxis right
-% plot(t, x(:,2))
-% ylabel('Velocity [m/s]')
-% hold on
-% plot(t(hMax == x(:,1)), hMax,'.', 'color', "#0072BD", 'MarkerSize', 25)
-% hold on
-% plot(tZeroH(2), 0, 'r.', 'MarkerSize', 25)
-% xlim([0,42]);
-% xlabel('Time [s]')
-% title('Ball Vertical Position and Velocity vs. Time')
-% legend({'Position','Velocity',sprintf('Max Height = %.1fm', hMax),...
-%         sprintf('Impact = %.1fs', tZeroH(2))}, 'Location', 'southoutside')
-% saveas(gcf, 'Figures/(P1)ball.png');
+figure;
+yyaxis left
+plot(t, x(:,1))
+ylabel('Vertical Position [m]')
+yyaxis right
+plot(t, x(:,2))
+ylabel('Velocity [m/s]')
+hold on
+plot(t(hMax == x(:,1)), hMax,'.', 'color', "#0072BD", 'MarkerSize', 25)
+hold on
+plot(tZeroH(2), 0, 'r.', 'MarkerSize', 25)
+xlim([0,42]);
+xlabel('Time [s]')
+title('Ball Vertical Position and Velocity vs. Time')
+legend({'Position','Velocity',sprintf('Max Height = %.1fm', hMax),...
+        sprintf('Impact = %.1fs', tZeroH(2))}, 'Location', 'southoutside')
+saveas(gcf, 'Figures/(P1)ball.png');
 
 fprintf('Time till impact: %s [s]',tZeroH(2))
 
