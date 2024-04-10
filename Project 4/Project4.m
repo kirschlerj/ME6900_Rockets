@@ -4,9 +4,8 @@ clear, clc, close all
 
 % Constants
 c = 343;
-tstep = 0.1;
+dt = 0.1;
 tSim = 100;
-t = 0:tstep:tSim;
 
 % Initial Conditions
 tv0     = 1.2*c;     
