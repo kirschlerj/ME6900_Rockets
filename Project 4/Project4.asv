@@ -42,29 +42,25 @@ tx = x(2);
 ty = x(3);
 mx = x(6);
 my = x(7);
-X  = tx-mx;
-Y  = ty-my;
+X  = tx-mx
+Y  = ty-my
 R  = sqrt(X^2 -Y^2);
 th = x(9);
-thn = atan2(Y,X);
+thn = atan2(Y,X)
 dth = thn/dt;
+
+a = N * dth * vc
 
 tvx = tdx;
 tvy = tdy;
 mvx = x(5)*cosd(x(8));
 mvy = x(5)*sind(x(8));
 vc  = sqrt((mvx + tvx)^2 + (mvy + tvy)^2);
-a = N * dth * vc;
 
-mth = x(8) + a/10;
-mdth = mth/dt;
-mdx = x(5)*cosd(mth);
-mdy = x(5)*sind(mth);
-
-mdv = 0;
+mdv = 0; mdx = 0; mdy = 0; dla = 0;
 
 
-    dxdt = [tdv; tdx; tdy; tdhead; mdv; mdx; mdy; mdth; dth;];
+    dxdt = [tdv; tdx; tdy; tdhead; mdv; mdx; mdy; dla; dth;];
 end 
 
 
