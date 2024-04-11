@@ -5,23 +5,23 @@ clear, clc, close all
 % Constants
 c = 343;
 dt = 0.1;
-tSim = 100;
-N = 5;
+tSim = 25;
+N = 0.7;
 
 % Initial Conditions
-tv0     = 1.2*c;     
+tv0     = 250;     
 ty0     = 13000;  
 tx0     = 0;      
 thead0  = 0; 
-mv0     = 1.5*c;       
+mv0     = 500;       
 mx0     = -5000;  
 my0     = 12000;  
 launch_ang = 0;
-th0     = rad2deg(atan2((ty0-my0),(tx0-mx0)));
+th0     = (atan2((ty0-my0),(tx0-mx0)));
 vc0     = sqrt((mv0*cosd(launch_ang) + tv0*cosd(thead0))^2 + (mv0*sind(launch_ang) + tv0*sind(thead0))^2);
 
 % ODE Solver
-[t, x] = ode45(@(t,x) guide(t, x, dt, N), [0:dt:tSim],[tv0; tx0; ty0; thead0; mv0; mx0; my0; launch_ang; th0; vc0]);
+[t, x] = ode45(@(t,x) guide(t, x, dt, N), [0 tSim],[tv0; tx0; ty0; thead0; mv0; mx0; my0; launch_ang; th0; vc0]);
  
 
 
@@ -41,16 +41,20 @@ tdv = 0;
 tdhead = x(4);
 tdx = x(1)*cosd(x(4));
 tdy = x(1)*sind(x(4));
-
 tx = x(2);
 ty = x(3);
+
+mth = x(8);
+mdx = x(5)*cosd(mth);
+mdy = x(5)*sind(mth);
 mx = x(6);
 my = x(7);
+
 X  = tx-mx;
 Y  = ty-my;
 R  = sqrt(X^2-Y^2);
 th = x(9);
-thn = rad2deg(atan2(Y,X));
+thn = (atan2(Y,X));
 dth = thn-th;
 
 tvx = tdx;
@@ -60,12 +64,11 @@ mvy = x(5)*sind(x(8));
 vc = x(10);
 vcn  = sqrt((mvx + tvx)^2 + (mvy + tvy)^2);
 dvc = vcn-vc;
-a = N * deg2rad(dth) * vc
+a = N * (dth) * vc;
 
-mth = x(8);
-mdth = a;
-mdx = x(5)*cosd(mth);
-mdy = x(5)*sind(mth);
+
+mdth = a/10;
+
 
 mdv = 0;
 
