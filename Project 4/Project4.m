@@ -1,6 +1,8 @@
 
 % ME 6900 Project 4 - Missile Guidance (A2A, AIM-54)
 clear, clc, close all
+v = VideoWriter('guidanceAnim.mp4', 'MPEG-4');
+open(v);
 
 % Constants
 c = 343;
@@ -25,7 +27,34 @@ vc0     = sqrt((mv0*cosd(launch_ang) + tv0*cosd(thead0))^2 + (mv0*sind(launch_an
  
 for i = 1:length(t)
     [~, R(i), dth(i)] = guide(t(i), x(i,:), N);
+    
+    xm(i) = x(i,6);
+    ym(i) = x(i,7);    
+    xt(i) = x(i,2);
+    yt(i) = x(i,3);
+    
+    X = [xm(i) xt(i)];
+    Y = [ym(i) yt(i)];
+    
+    if mod(i,5) == 0 
+        plot(X,Y, 'k')
+        xlim([-6000, 8000])
+        ylim([12000, 26000])
+        hold on
+    end 
+    
+    plot(x(i,2),x(i,3),'o','Color',	"#0072BD")
+    hold on
+    plot(x(i,6),x(i,7),'o', 'Color', "#D95319")
+    drawnow;
+    pause(0.1);
+    frame = getframe(gcf);
+    writeVideo(v, frame);
+      
 end 
+saveas(gcf, 'Figures/P4TrajAnim.png');
+close(v);
+
 
 % Plotting
 figure;
