@@ -1,7 +1,7 @@
 
 % ME 6900 Project 4 - Missile Guidance (A2A, AIM-54)
 clear, clc, close all
-v = VideoWriter('guidanceAnim.mp4', 'MPEG-4');
+v = VideoWriter('Figures/guidanceAnim.mp4', 'MPEG-4');
 open(v);
 
 % Constants
@@ -43,9 +43,13 @@ for i = 1:length(t)
         hold on
     end 
     
+    title('Trajectory Animation w/ R')
+    xlabel('X Position/Distance [m]')
+    ylabel('Y Position/Distance [m]')
     plot(x(i,2),x(i,3),'o','Color',	"#0072BD")
     hold on
     plot(x(i,6),x(i,7),'o', 'Color', "#D95319")
+    legend('Target', 'Missile');
     drawnow;
     pause(0.1);
     frame = getframe(gcf);
@@ -98,12 +102,17 @@ tdx = x(1)*cosd(x(4));
 tdy = x(1)*sind(x(4));
 tx = x(2);
 ty = x(3);
+tvx = tdx;
+tvy = tdy;
 
 mth = x(8);
 mdx = x(5)*cosd(mth);
 mdy = x(5)*sind(mth);
 mx = x(6);
 my = x(7);
+mvx = x(5)*cosd(x(8));
+mvy = x(5)*sind(x(8));
+mdv = 0;
 
 X  = tx-mx;
 Y  = ty-my;
@@ -111,18 +120,13 @@ R  = sqrt(X^2+Y^2);
 th = x(9);
 thn = (atan2(Y,X));
 dth = thn-th;
-
-tvx = tdx;
-tvy = tdy;
-mvx = x(5)*cosd(x(8));
-mvy = x(5)*sind(x(8));
 vc = x(10);
 vcn  = sqrt((mvx + tvx)^2 + (mvy + tvy)^2);
 dvc = vcn-vc;
-a = N * (dth) * vc;
 
+a = N * (dth) * vc;
 mdth = a/10;
-mdv = 0;
+
 
 dxdt = [tdv; tdx; tdy; tdhead; mdv; mdx; mdy; mdth; dth; dvc];
 end 
