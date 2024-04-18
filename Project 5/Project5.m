@@ -1,3 +1,24 @@
+% ME 6900 Project 5 - ProNav Deep Dive
+clear, clc, close all
+
+% Constants
+c = 343;
+tSim = 25;
+N = 0.1;
+
+% Initial Conditions
+tv0     = 1.2*c;     
+ty0     = 13000;  
+tx0     = 0;      
+thead0  = 0; 
+mv0     = 3*c;       
+mx0     = -5000;  
+my0     = 26000;  
+launch_ang = 0;
+th0     = (atan2((ty0-my0),(tx0-mx0)));
+r0      = sqrt((tx0-mx0)^2 + (ty0-my0)^2);
+vc0     = sqrt((mv0*cos(launch_ang) + tv0*cos(thead0))^2 + (mv0*sin(launch_ang) + tv0*sin(thead0))^2);
+
 % ODE Solver
 [t, x] = ode45(@(t,x) guide(t, x, N), [0 tSim],[tv0; tx0; ty0; thead0; mv0; mx0; my0; launch_ang; th0; vc0]);
  
@@ -40,7 +61,7 @@ function [dxdt, R, dth, mdth, a] = guide(t, x, N)
 
 
 tdhead = x(4);
-tdv = 5;
+tdv = 20;
 tdx = x(1)*cos(x(4));
 tdy = x(1)*sin(x(4));
 tv = sqrt(tdx^2+tdy^2);

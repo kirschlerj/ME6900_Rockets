@@ -4,7 +4,7 @@ clear, clc, close all
 
 % Constants
 c = 343;
-tSim = 20;
+tSimArray = csvread('tSim.csv',0,1);
 N = 0.1;
 
 % Initial Conditions
@@ -24,8 +24,8 @@ vc0     = sqrt((mv0*cos(launch_ang) + tv0*cos(thead0))^2 + (mv0*sin(launch_ang) 
 % ODE Solver
 for idx = 1:51
     
-    ta = (idx - 1) * 1;
-    tSim = 20 + (1)*(1/(2.72^(-0.2*(idx-15))))
+    ta = (idx - 1) * 0.75
+    tSim = tSimArray(idx)
     [t, x] = ode45(@(t,x) guide(t, x, N, ta), [0 tSim],[tv0; tx0; ty0; thead0; mv0; mx0; my0; launch_ang; th0; vc0]);
 
     R = zeros(size(t));
@@ -39,13 +39,14 @@ for idx = 1:51
 
     [~, idx_min_R] = min(R);
     minR = min(R);
+    mthATminR = x(idx_min_R,8);
     tImpact = t(idx_min_R);
 
-    simData{idx} = struct('t', t, 'x', x, 'R', R, 'dth', dth, 'mdth', mdth,...
-                          'time', time, 'tImpact', tImpact, 'minR' ,minR);
+    simData{idx} = struct('t', t, 'x', x, 'R', R, 'dth', dth, 'mdth', mdth,'time', time, ...
+                          'tImpact', tImpact, 'minR' ,minR, 'mthATminR',mthATminR);
 end 
 
-[accels, impactTimes, minRanges] = animate(simData);
+[accels, impactTimes, minRanges, headings] = animate(simData);
 
 figure;
 plot(accels, minRanges)
@@ -60,6 +61,13 @@ xlabel('Acceleration (m/s^2)');
 ylabel('Time to Minimum Range (s)');
 title('Time to Minimum Distance vs. Target Acceleration');
 saveas(gcf, 'Figures/TimeVsAccel.png');
+
+figure;
+plot(accels, rad2deg(headings))
+xlabel('Acceleration (m/s^2)');
+ylabel('Heading (deg)');
+title('Heading at Minimum Distance vs. Target Acceleration');
+saveas(gcf, 'Figures/HeadingVsAccel.png');
 
 
 function [dxdt, R, dth, mdth, a] = guide(t, x, N, ta)

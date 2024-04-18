@@ -1,4 +1,4 @@
-function [accels, impactTimes, minRanges] = animate(simData)
+function [accels, impactTimes, minRanges, headings] = animate(simData)
 
 v = VideoWriter('Figures/Anim.mp4', 'MPEG-4');
 v.FrameRate = 7.5;
@@ -6,9 +6,10 @@ open(v);
 
 
     for i = 1:length(simData)
-        accels(i) = i-1;
+        accels(i) = (i-1)*0.75;
         impactTimes(i) = simData{i}.tImpact;
         minRanges(i) = simData{i}.minR;
+        headings(i) = simData{i}.mthATminR;
 
         figure;
         plot(simData{1, i}.x(:,2), simData{1, i}.x(:,3))
