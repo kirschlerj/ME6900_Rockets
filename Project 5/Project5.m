@@ -1,9 +1,10 @@
+
 % ME 6900 Project 5 - ProNav Deep Dive
 clear, clc, close all
 
 % Constants
 c = 343;
-tSim = 25;
+tSimArray = csvread('tSim.csv',0,1);
 N = 0.1;
 
 % Initial Conditions
@@ -19,49 +20,61 @@ th0     = (atan2((ty0-my0),(tx0-mx0)));
 r0      = sqrt((tx0-mx0)^2 + (ty0-my0)^2);
 vc0     = sqrt((mv0*cos(launch_ang) + tv0*cos(thead0))^2 + (mv0*sin(launch_ang) + tv0*sin(thead0))^2);
 
+
 % ODE Solver
-[t, x] = ode45(@(t,x) guide(t, x, N), [0 tSim],[tv0; tx0; ty0; thead0; mv0; mx0; my0; launch_ang; th0; vc0]);
- 
-
-
-for i = 1:length(t)
-    [~, R(i), dth(i), mdth(i), a(i)] = guide(t(i), x(i,:), N);
+for idx = 1:51
     
-    idx = find(R == min(R));
-    Rmin = min(R);
-    
-    for i = 1:idx
-        mx(i) = x(i,6);
-        my(i) = x(i,7);    
-        tx(i) = x(i,2);
-        ty(i) = x(i,3);
-        th(i) = x(i,9);
-        time(i) = t(i);
+    ta = (idx - 1) * 0.75
+    tSim = tSimArray(idx)
+    [t, x] = ode45(@(t,x) guide(t, x, N, ta), [0 tSim],[tv0; tx0; ty0; thead0; mv0; mx0; my0; launch_ang; th0; vc0]);
 
-        X = [mx(i) tx(i)];
-        Y = [my(i) ty(i)];
+    R = zeros(size(t));
+    dth = zeros(size(t));
+    mdth = zeros(size(t));
+    time = t;
+
+    for i = 1:length(t)
+        [~, R(i), dth(i), mdth(i)] = guide(t(i), x(i,:), N, ta);
     end 
- 
+
+    [~, idx_min_R] = min(R);
+    minR = min(R);
+    mthATminR = x(idx_min_R,8);
+    tImpact = t(idx_min_R);
+
+    simData{idx} = struct('t', t, 'x', x, 'R', R, 'dth', dth, 'mdth', mdth,'time', time, ...
+                          'tImpact', tImpact, 'minR' ,minR, 'mthATminR',mthATminR);
 end 
 
+[accels, impactTimes, minRanges, headings] = animate(simData);
 
-% Plotting
 figure;
-plot(tx, ty)
-hold on
-plot(mx, my)
-xlabel('X Position [m]')
-ylabel('Y Position [m]')
-title('Flight Profile')
-legend('Target Position', 'Missile Position');
-% saveas(gcf, 'Figures/P4Trajectories.png');
+plot(accels, minRanges)
+xlabel('Acceleration (m/s^2)');
+ylabel('Minimum Range (m)');
+title('Minimum Distance from Target vs. Target Acceleration');
+saveas(gcf, 'Figures/RangeVsAccel.png');
+
+figure;
+plot(accels, impactTimes)
+xlabel('Acceleration (m/s^2)');
+ylabel('Time to Minimum Range (s)');
+title('Time to Minimum Distance vs. Target Acceleration');
+saveas(gcf, 'Figures/TimeVsAccel.png');
+
+figure;
+plot(accels, rad2deg(headings))
+xlabel('Acceleration (m/s^2)');
+ylabel('Heading (deg)');
+title('Heading at Minimum Distance vs. Target Acceleration');
+saveas(gcf, 'Figures/HeadingVsAccel.png');
 
 
-function [dxdt, R, dth, mdth, a] = guide(t, x, N)
+function [dxdt, R, dth, mdth, a] = guide(t, x, N, ta)
 
 
 tdhead = x(4);
-tdv = 20;
+tdv = ta;
 tdx = x(1)*cos(x(4));
 tdy = x(1)*sin(x(4));
 tv = sqrt(tdx^2+tdy^2);
@@ -96,3 +109,5 @@ mdv = 0;
 
 dxdt = [tdv; tdx; tdy; tdhead; mdv; mdx; mdy; mdth; dth; dvc];
 end 
+
+
