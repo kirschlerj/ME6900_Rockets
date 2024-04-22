@@ -26,7 +26,7 @@ vc0     = sqrt((mv0*cosd(launch_ang) + tv0*cosd(thead0))^2 + (mv0*sind(launch_an
 [t, x] = ode45(@(t,x) guide(t, x, N), [0 tSim],[tv0; tx0; ty0; thead0; mv0; mx0; my0; launch_ang; th0; vc0]);
  
 for i = 1:length(t)
-    [~, R(i), dth(i)] = guide(t(i), x(i,:), N);
+    [~, R(i), dth(i), mdth(i)] = guide(t(i), x(i,:), N);
     
     xm(i) = x(i,6);
     ym(i) = x(i,7);    
@@ -93,8 +93,19 @@ xlabel('Time [s]')
 title('Theta Relations')
 saveas(gcf, 'Figures/P4thetaRelations.png');
 
+figure;
+yyaxis left
+plot(t, (x(:,8)))
+ylabel('Missile Heading [deg]')
+yyaxis right
+plot(t, (mdth'))
+ylabel('Change in Heading [deg/s]');
+xlabel('Time [s]')
+title('Missile Heading')
+saveas(gcf, 'Figures/P4Heading.png');
 
-function [dxdt, R, dth] = guide(t, x, N)
+
+function [dxdt, R, dth, mdth] = guide(t, x, N)
 
 tdv = 0;
 tdhead = x(4);
